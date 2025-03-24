@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mini App с чатом</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body bgcolor="white">
+    <h2>Версия 1</h2>
+
+    <script type="text/javascript">
+      window.onload = function () {
+        Telegram.WebApp.ready(); // Инициализация Telegram WebApp
+
+        const user = Telegram.WebApp.initDataUnsafe.user;
+
+        // Защита: если по какой-то причине Telegram не дал данных
+        if (!user) {
+          console.error("Не удалось получить данные пользователя из Telegram.");
+          return;
+        }
+
+        const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+        const userId = user.username || user.id;
+
+        // Настройки HelpCrunch
+        window.helpcrunchSettings = {
+          organization: 'mswarehouse',
+          appId: '80c80346-ee88-426b-87cd-0d0719016548',
+          user: {
+            name: fullName,
+            user_id: userId
+          }
+        };
+
+        // Загрузка виджета HelpCrunch
+        (function (w, d) {
+          var hS = w.helpcrunchSettings;
+          if (!hS || !hS.organization) return;
+
+          var widgetSrc = 'https://embed.helpcrunch.com/sdk.js';
+          w.HelpCrunch = function () {
+            w.HelpCrunch.q.push(arguments);
+          };
+          w.HelpCrunch.q = [];
+
+          function r() {
+            if (d.querySelector('script[src="' + widgetSrc + '"]')) return;
+            var s = d.createElement('script');
+            s.async = 1;
+            s.type = 'text/javascript';
+            s.src = widgetSrc;
+            (d.body || d.head).appendChild(s);
+          }
+
+          r();
+        })(window, document);
+      };
+    </script>
+  </body>
+</html>
