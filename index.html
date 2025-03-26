@@ -85,11 +85,11 @@
 
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
         const username = user.username ? '@' + user.username : '';
-        const userId = user.username || user.id;
+        const userId = user.id;
 
         // Показать имя и username
         document.getElementById('name').innerText = fullName;
-        document.getElementById('username').innerText = username;
+        document.getElementById('username').innerText = userId;
 
         // Фото пользователя (если есть)
         const avatar = document.getElementById('avatar');
