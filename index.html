@@ -41,7 +41,7 @@
         font-weight: bold;
       }
 
-      .username {
+      .userid {
         color: gray;
       }
 
@@ -55,7 +55,7 @@
         box-shadow: 0 4px 12px rgba(255,255,255,0.1);
       }
 
-      .dark .username {
+      .dark .userid {
         color: #aaa;
       }
     </style>
@@ -63,13 +63,13 @@
   <body>
     <h4>Правила использования данного Бота</h4>
     <p>Убедитесь, что ваше Фамилия и Имя указаны правильно и соответствуют реальным данным. Это необходимо для того, чтобы сотрудник склада мог корректно вас идентифицировать и понимать, с кем он общается.</p>
-    <p>ℹ️ Ниже вы можете увидеть, как ваше имя отображается для сотрудника склада на данный момент. Если ФИО указано некорректно — пожалуйста, измените его в настройках Telegram.</p>
+    <p>ℹ️ Ниже вы можете увидеть, как ваше имя и ID отображаются для сотрудника склада. Если ФИО указано некорректно — пожалуйста, измените его в настройках Telegram.</p>
 
     <div class="container">
       <img class="avatar" id="avatar" alt="avatar" />
       <div class="user-info">
         <div class="name" id="name"></div>
-        <div class="userId" id="userId"></div>
+        <div class="userid" id="userid"></div>
       </div>
     </div>
 
@@ -84,12 +84,11 @@
         }
 
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
-        const username = user.username ? '@' + user.username : '';
-        const userId = user.id;
+        const userId = user.id.toString();
 
-        // Показать имя и username
+        // Показать имя и userId
         document.getElementById('name').innerText = fullName;
-        document.getElementById('username').innerText = userId;
+        document.getElementById('userid').innerText = 'ID: ' + userId;
 
         // Фото пользователя (если есть)
         const avatar = document.getElementById('avatar');
@@ -116,32 +115,32 @@
         };
 
         (function (w, d) {
-  var hS = w.helpcrunchSettings;
-  if (!hS || !hS.organization) return;
+          var hS = w.helpcrunchSettings;
+          if (!hS || !hS.organization) return;
 
-  var widgetSrc = 'https://embed.helpcrunch.com/sdk.js';
-  w.HelpCrunch = function () {
-    w.HelpCrunch.q.push(arguments);
-  };
-  w.HelpCrunch.q = [];
+          var widgetSrc = 'https://embed.helpcrunch.com/sdk.js';
+          w.HelpCrunch = function () {
+            w.HelpCrunch.q.push(arguments);
+          };
+          w.HelpCrunch.q = [];
 
-  function r() {
-    if (d.querySelector('script[src="' + widgetSrc + '"]')) return;
-    var s = d.createElement('script');
-    s.async = 1;
-    s.type = 'text/javascript';
-    s.src = widgetSrc;
-    (d.body || d.head).appendChild(s);
-  }
+          function r() {
+            if (d.querySelector('script[src="' + widgetSrc + '"]')) return;
+            var s = d.createElement('script');
+            s.async = 1;
+            s.type = 'text/javascript';
+            s.src = widgetSrc;
+            (d.body || d.head).appendChild(s);
+          }
 
-  if (d.readyState === 'complete' || hS.loadImmediately) {
-    r();
-  } else if (w.attachEvent) {
-    w.attachEvent('onload', r);
-  } else {
-    w.addEventListener('load', r, false);
-  }
-})(window, document);
+          if (d.readyState === 'complete' || hS.loadImmediately) {
+            r();
+          } else if (w.attachEvent) {
+            w.attachEvent('onload', r);
+          } else {
+            w.addEventListener('load', r, false);
+          }
+        })(window, document);
 
         // Вспомогательная функция: яркость цвета
         function getLuminance(hex) {
